@@ -1,0 +1,66 @@
+public with sharing class AddressFieldController {                    	
+    public List<Account> recordAccount { get; set; }
+    Account accountEdgeCommunications;
+    Account accountNew;
+    public List<Opportunity> recordOpportunity { get; set; }
+    Opportunity opportunity;
+	List<selectOption> options = new List<selectOption>();
+    String query = null;
+    public AddressFieldController() {
+        recordAccount = [SELECT Id, Name, BillingStreet, BillingPostalCode, BillingCity, BillingState, BillingCountry FROM Account WHERE Name LIKE 'Edge Communications'];
+        accountEdgeCommunications = recordAccount.get(0);
+		idRecordAccount = accountEdgeCommunications.Id;
+        recordOpportunity = [SELECT Id, AccountId, Name, Description FROM Opportunity WHERE Id = :selectedValue];
+        getAccNames();
+	}
+    
+    public void addOpportunity(Opportunity opportunity) {
+        if(recordOpportunity != null) {
+        	recordOpportunity.add(opportunity);
+        }
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+
+    public string selectedValue { 
+        get; 
+        set; 
+    }   
+
+    public ID idRecordAccount {
+     	get;
+        set;
+    }
+    
+    public ID idNewRecordAccount {
+     	get;
+        set;
+    }
+    
+    public void action() {    	       		
+/*		Account newAccount = new Account(            
+    		Name = 'Wavy Apps', 
+            BillingStreet = 'BillingStreet', 
+            BillingPostalCode = 'BillingPostalCode',
+            BillingCity = 'BillingCity',
+            BillingState = 'BillingState',
+            BillingCountry = 'BillingCountry'
+        );        
+		insert newAccount;				*/
+		Account accountQuery = [SELECT Id, Name, BillingStreet, BillingPostalCode, BillingCity, BillingState, BillingCountry FROM Account WHERE Name LIKE 'Wavy Apps'];
+        recordAccount.add(accountQuery);
+		idNewRecordAccount = accountQuery.Id;	
+        opportunity = [SELECT Id, OwnerId, IsPrivate, Name, AccountId, Type, LeadSource, OrderNumber__c, CurrentGenerators__c, TrackingNumber__c, CreatedById, Description,
+                       		  Amount, ExpectedRevenue, CloseDate, NextStep, StageName, Probability, CampaignId, MainCompetitors__c, DeliveryInstallationStatus__c, 
+                       		  LastModifiedById FROM Opportunity WHERE Id = :selectedValue];        			
+        if(recordOpportunity != null) {
+        	recordOpportunity.add(opportunity);
+        }        
+	}    
+    
+    public List<selectOption> getAccNames() {
+        options.clear();
+		for(Opportunity acc : [SELECT Id, Name FROM Opportunity WHERE AccountId = :idRecordAccount]) {
+			options.add(new selectOption(acc.Id, acc.Name));
+		}        
+		return options;
+	}
+}

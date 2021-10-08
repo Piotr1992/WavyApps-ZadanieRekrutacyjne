@@ -1,0 +1,42 @@
+<apex:page Controller="AddressFieldController">   
+           
+    <apex:pageBlock title="">
+        <apex:pageBlockTable value="{!recordAccount}" var="a">    		  
+            <apex:column headerValue="Id Account" value="{!a.Id}"/>
+    		<apex:column headerValue="Name Account" value="{!a.Name}"/>
+            <apex:column headerValue="Address Account" value="{!a.BillingStreet} {!a.BillingPostalCode} {!a.BillingCity} {!a.BillingState} {!a.BillingCountry}"/>			
+        </apex:pageBlockTable>
+		<apex:pageBlockTable value="{!recordOpportunity}" var="a">    		                          
+            <apex:column headerValue="Account ID WavyApps" value="{!idNewRecordAccount}"/>
+            <apex:column headerValue="Opportunity Owner" value="{!a.OwnerId}"/>
+            <apex:column headerValue="Private" value="{!a.IsPrivate}"/>
+    		<apex:column headerValue="Opportunity Name" value="{!a.Name}"/>            
+            <apex:column headerValue="Account Name" value="{!a.AccountId}"/>
+            <apex:column headerValue="Type" value="{!a.Type}"/>
+            <apex:column headerValue="LeadSource" value="{!a.LeadSource}"/>
+            <apex:column headerValue="OrderNumber__c" value="{!a.OrderNumber__c}"/>
+            <apex:column headerValue="CurrentGenerators__c" value="{!a.CurrentGenerators__c}"/>
+            <apex:column headerValue="TrackingNumber__c" value="{!a.TrackingNumber__c}"/>
+            <apex:column headerValue="CreatedById" value="{!a.CreatedById}"/>
+            <apex:column headerValue="Description" value="{!a.Description}"/>
+            <apex:column headerValue="Amount" value="{!a.Amount}"/>
+            <apex:column headerValue="ExpectedRevenue" value="{!a.ExpectedRevenue}"/>
+            <apex:column headerValue="CloseDate" value="{!a.CloseDate}"/>            
+            <apex:column headerValue="NextStep" value="{!a.NextStep}"/>
+            <apex:column headerValue="StageName" value="{!a.StageName}"/>
+            <apex:column headerValue="Probability" value="{!a.Probability}"/>
+            <apex:column headerValue="CampaignId" value="{!a.CampaignId}"/>
+            <apex:column headerValue="MainCompetitors__c" value="{!a.MainCompetitors__c}"/>
+            <apex:column headerValue="DeliveryInstallationStatus__c" value="{!a.DeliveryInstallationStatus__c}"/>
+            <apex:column headerValue="LastModifiedById" value="{!a.LastModifiedById}"/>                      		  
+        </apex:pageBlockTable>			
+    </apex:pageBlock>                
+    
+    <apex:form>
+        <apex:commandButton action="{!action}" value="Copy" style="margin: 5px;"/>        
+		<apex:selectList multiselect="false" size="1" value="{!selectedValue}" onchange="Select(this.value)">	
+			<apex:selectOptions value="{!accNames}"></apex:selectOptions>
+		</apex:selectList>                               
+    </apex:form>                 
+    
+</apex:page>
