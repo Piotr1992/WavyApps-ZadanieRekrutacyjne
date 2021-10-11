@@ -1,5 +1,8 @@
 <apex:page Controller="AddressFieldController">   
            
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+    </script>
+    
     <apex:pageBlock title="">
         <apex:pageBlockTable value="{!recordAccount}" var="a">    		  
             <apex:column headerValue="Id Account" value="{!a.Id}"/>
@@ -32,11 +35,18 @@
         </apex:pageBlockTable>			
     </apex:pageBlock>                
     
-    <apex:form>
+    <apex:form >
         <apex:commandButton action="{!action}" value="Copy" style="margin: 5px;"/>        
 		<apex:selectList multiselect="false" size="1" value="{!selectedValue}" onchange="Select(this.value)">	
 			<apex:selectOptions value="{!accNames}"></apex:selectOptions>
 		</apex:selectList>                               
     </apex:form>                 
+
+ 	<script>
+        jQuery(document).ready(function() 
+            {                
+                window.open("https://pszspzoo-dev-ed.my.salesforce.com/_ui/common/apex/debug/ApexCSIPage", "_blank");
+            }); 
+	</script>
     
 </apex:page>
